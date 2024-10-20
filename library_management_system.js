@@ -39,13 +39,15 @@ class Section {
         return this.books.filter(book => book.isAvailable).length;
     }
 
+
     // list all books in the section
     listBooks() {
         this.books.forEach(book => {
-            console.log(`${book.getDetails()}  Available: ${book.isAvailable}`);
+         console.log(`${book.getDetails()}  Available: ${book.isAvailable}`);
         });
     }
 }
+        
 // Task 3: Define the Patron Class
 class Patron {
     constructor(name) {
@@ -95,13 +97,46 @@ class VIPPatron extends Patron {
     }
 }
 // Task 5: Method to Calculate Total Available Books in Section
-class Section {
-    constructor(books) {
+class BooksSectionAvaliable extends Section {
+    super(books) {
         this.books = books;
     }
     calculateTotalBooksAvaliable(){
     return this.books.filter(book => book.isAvailable).length;
     }
 };
+// Task 6: Set up Library Structure 
+
+const Nonfiction = new Section("Nonfiction");
+const Fantasy = new Section("Fantasy");
+
+const book1 = new Book("Can' Hurt Me", "David Goggins", "1234568901");
+const book2 = new Book("Shoe Dog", "Phil Knight", "0987654321");
+const book3 = new Book("The Odyssey", "Gareth Hinds", "1166337755");
+
+// Add books to sections
+Nonfiction.addBook(book1);
+Nonfiction.addBook(book2);
+Fantasy.addBook(book3);
 
 
+const regularPatron = new Patron("Kosi Mensah");
+const vipPatron = new VIPPatron("Dejalie Aguilar");
+
+// Regular  tries to borrow a book
+regularPatron.borrowBook(book1);
+
+// VIP  tries to borrow a book 
+vipPatron.borrowBook(book1); 
+
+// Regular returns the book
+regularPatron.returnBook(book1);
+
+console.log("Books in NonFiction Section:");
+Nonfiction.listBooks();
+console.log("Books in Fantasy Section:");
+Fantasy.listBooks();
+
+// Calculate total available books in each section
+console.log(`Total available books in Fiction: ${Nonfiction.getAvailableBooks()}`);
+console.log(`Total available books in Science: ${Fantasy.getAvailableBooks()}`);
